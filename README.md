@@ -3,6 +3,8 @@
 A 2D side-scrolling platformer inspired by *Geometry Dash*, built with plain
 HTML5 Canvas and vanilla JavaScript — no build step, no dependencies.
 
+Play instantly in your browser — no installation required.
+
 **Play it live:** https://viyanprathiban31.github.io/Geometry-Dash-Clone/
 
 ## How to play
