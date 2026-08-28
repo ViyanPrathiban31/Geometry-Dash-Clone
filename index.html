@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometry Dash Clone</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrap">
+    <div id="hud">
+      <button id="menu-btn" type="button" title="Back to level select (Esc)">Menu</button>
+      <button id="mute-btn" type="button">Sound: On</button>
+      <button id="autoplay-btn" type="button" title="Let the game jump for you">Autoplay: Off</button>
+      <div id="progress-track"><div id="progress-fill"></div></div>
+      <div id="level-label"></div>
+      <div id="death-counter">Attempts: <span id="death-count">0</span></div>
+    </div>
+    <canvas id="game"></canvas>
+
+    <div id="menu-overlay">
+      <h1>GEOMETRY DASH<span class="clone-tag">clone</span></h1>
+      <p class="hint">Select a level</p>
+      <div id="level-grid"></div>
+      <div id="menu-actions">
+        <button id="open-skins-btn" type="button" class="secondary-btn">Skins</button>
+        <button id="open-maker-btn" type="button" class="secondary-btn">Level Maker</button>
+      </div>
+
+      <div id="custom-section">
+        <h2>My Levels</h2>
+        <div id="custom-list"></div>
+      </div>
+    </div>
+
+    <div id="skin-overlay" class="hidden">
+      <h1>SKINS</h1>
+      <div id="skin-grid"></div>
+      <button id="close-skins-btn" type="button" class="secondary-btn">Back</button>
+    </div>
+
+    <div id="win-overlay" class="hidden">
+      <h1>LEVEL COMPLETE</h1>
+      <p id="win-attempts"></p>
+      <div id="win-buttons">
+        <button id="next-level-btn" type="button" class="secondary-btn">Next Level</button>
+        <button id="back-to-editor-btn" type="button" class="secondary-btn hidden">Back to Editor</button>
+        <button id="level-select-btn" type="button" class="secondary-btn">Level Select</button>
+      </div>
+    </div>
+
+    <div id="editor-overlay" class="hidden">
+      <div id="editor-toolbar">
+        <div id="editor-row-1">
+          <input id="editor-name-input" type="text" maxlength="40" placeholder="Level name">
+          <select id="editor-palette-select"></select>
+          <span id="editor-scroll-readout">0 / 3000</span>
+          <button id="editor-scroll-prev" type="button" class="editor-nav-btn" title="Scroll left">&larr;</button>
+          <button id="editor-scroll-next" type="button" class="editor-nav-btn" title="Scroll right">&rarr;</button>
+          <button id="editor-extend-btn" type="button" class="editor-nav-btn">Extend +500</button>
+        </div>
+        <div id="editor-row-2">
+          <button type="button" class="editor-tool-btn" data-tool="spike">Spike</button>
+          <button type="button" class="editor-tool-btn" data-tool="block">Block</button>
+          <button type="button" class="editor-tool-btn" data-tool="gravity-down">Gravity Flip ↓</button>
+          <button type="button" class="editor-tool-btn" data-tool="gravity-up">Gravity Flip ↑</button>
+          <button type="button" class="editor-tool-btn" data-tool="speed">Speed Portal</button>
+          <select id="editor-speed-select">
+            <option value="0.5">0.5x</option>
+            <option value="0.75">0.75x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2x</option>
+            <option value="3">3x</option>
+          </select>
+          <button type="button" class="editor-tool-btn" data-tool="godzilla" title="Destroys every block in the level on touch">Godzilla</button>
+          <button type="button" class="editor-tool-btn" data-tool="eraser">Eraser</button>
+        </div>
+        <div id="editor-row-3">
+          <p class="hint-small">Click the level to place the selected tool. Spikes place on the ground below the midline, on the ceiling above it.</p>
+          <div id="editor-actions">
+            <button id="editor-test-btn" type="button" class="secondary-btn">Test Play</button>
+            <button id="editor-save-btn" type="button" class="secondary-btn">Save</button>
+            <button id="editor-back-btn" type="button" class="secondary-btn">Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="hidden"></div>
+  </div>
+  <script src="levels.js"></script>
+  <script src="skins.js"></script>
+  <script src="audio.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
