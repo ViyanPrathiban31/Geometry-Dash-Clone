@@ -356,7 +356,24 @@ canvas{
 }
 .secondary-btn:hover{ background:rgba(46,230,255,0.2); }
 
-#win-buttons{ display:flex; gap:12px; margin-top:6px; }
+#win-buttons{ display:flex; gap:12px; margin-top:6px; position:relative; z-index:2; }
+
+/* Invisible strips on the win screen's far left/right edges — a hidden
+   double-tap/double-click Easter egg lives here (see game.js). Deliberately
+   unstyled/undocumented in the manual so it stays a secret to find.
+   #win-buttons is explicitly lifted to z-index:2 above these (z-index:1) —
+   absolutely-positioned elements always paint above static siblings
+   regardless of z-index otherwise, which would silently swallow taps on
+   the real buttons wherever they geometrically overlap these strips on
+   narrow screens. */
+#win-side-left, #win-side-right{
+  position:absolute;
+  top:0; bottom:0;
+  width:15%;
+  z-index:1;
+}
+#win-side-left{ left:0; }
+#win-side-right{ right:0; }
 
 /* --- level editor --- */
 /* Unlike the other overlays, this is a bottom bar, not a full-screen cover —

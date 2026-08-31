@@ -167,6 +167,17 @@ Each triggers a toast confirming what happened, and refreshes the level/skin
 grids live if they're open. Adding a new code is a one-line addition to the
 `CHEAT_CODES` list in `game.js`.
 
+**Non-keyboard secret**: on the Beginner level's win screen, double-tapping
+or double-clicking the far left or right 15% edge of the screen (invisible,
+unstyled, undocumented in the in-game manual on purpose) runs
+`unlockAllSecrets()` — the combined effect of `cheat` + `master` + `goji` at
+once: every skin including Ultra Godzilla, every built-in level marked
+complete, and cheat mode's easy-run physics turned on. Uses a hand-rolled
+click-timestamp double-tap detector (`makeDoubleTapHandler()`) rather than
+the native `dblclick` event, since the page's zoom-locking viewport meta tag
+can suppress the browser's synthetic double-tap event on some mobile
+browsers — this way it works identically on phone, tablet, and desktop.
+
 ## Persistence
 
 Single `localStorage` key `gdclone_save_v1` holds: completed level ids, the

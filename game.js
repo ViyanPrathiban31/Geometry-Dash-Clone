@@ -24,6 +24,8 @@ const skinGridEl = document.getElementById('skin-grid');
 const closeSkinsBtn = document.getElementById('close-skins-btn');
 const winOverlay = document.getElementById('win-overlay');
 const winAttemptsEl = document.getElementById('win-attempts');
+const winSideLeft = document.getElementById('win-side-left');
+const winSideRight = document.getElementById('win-side-right');
 const nextLevelBtn = document.getElementById('next-level-btn');
 const backToEditorBtn = document.getElementById('back-to-editor-btn');
 const levelSelectBtn = document.getElementById('level-select-btn');
@@ -193,6 +195,45 @@ function activateGojiCode() {
     showToast('Ultra Godzilla already unlocked.');
   }
   refreshOpenMenus();
+}
+
+// Hidden Easter egg: double-tap/double-click the far left or right edge of
+// the Beginner level's win screen to unlock everything at once — every
+// skin (including the secret ones), every built-in level marked complete,
+// and cheat mode's easy-run effect. Not documented anywhere in-game.
+function unlockAllSecrets() {
+  cheatActive = true;
+  for (const skin of SKINS) {
+    if (!save.unlockedSkins.includes(skin.id)) save.unlockedSkins.push(skin.id);
+  }
+  for (const lvl of LEVELS) {
+    if (!save.completedLevels.includes(lvl.id)) save.completedLevels.push(lvl.id);
+  }
+  persistSave();
+  showToast('🎉 Secret found — everything unlocked!');
+  refreshOpenMenus();
+}
+
+// Manual double-tap/double-click detection rather than the native 'dblclick'
+// event — the game locks pinch/double-tap zoom (see the viewport meta tag),
+// which on some mobile browsers suppresses synthetic dblclick entirely.
+// Working off plain 'click' timestamps behaves identically for mouse and
+// touch everywhere.
+function makeDoubleTapHandler(fn, thresholdMs = 400) {
+  let lastTime = 0;
+  return () => {
+    const now = Date.now();
+    if (now - lastTime < thresholdMs) {
+      lastTime = 0;
+      fn();
+    } else {
+      lastTime = now;
+    }
+  };
+}
+
+function tryWinScreenSecret() {
+  if (state === 'win' && level && level.tier === 'beginner') unlockAllSecrets();
 }
 
 function refreshOpenMenus() {
@@ -699,6 +740,8 @@ backToEditorBtn.addEventListener('click', () => {
   if (level && level.tier === 'custom') openEditor(level);
 });
 levelSelectBtn.addEventListener('click', openMenu);
+winSideLeft.addEventListener('click', makeDoubleTapHandler(tryWinScreenSecret));
+winSideRight.addEventListener('click', makeDoubleTapHandler(tryWinScreenSecret));
 menuBtn.addEventListener('click', () => {
   if (state === 'playing' || state === 'dead' || state === 'editor') openMenu();
 });
