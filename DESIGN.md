@@ -19,6 +19,7 @@ Color palette arcs from **neon blue** (Level 1) to **fiery red/orange**
 
 | # | Name | Tier | Length | BPM | New mechanic | Palette (primary / secondary) |
 |---|------|------|--------|-----|---------------|-------------------------------|
+| — | **Beginner** | Beginner | 2000 | 108 | A short, gently-spaced warm-up. No portals. | Calm cyan / mint |
 | 1 | First Steps | Easy | 2900 | 120 | — | Neon green / neon blue |
 | 2 | Cube Rhythm | Easy | 3200 | 126 | Block staircases | Neon green / yellow |
 | 3 | Spike Alley | Easy | 3400 | 132 | Denser spike clusters | Neon blue / purple |
@@ -29,8 +30,22 @@ Color palette arcs from **neon blue** (Level 1) to **fiery red/orange**
 | 8 | Blackout Run | Hard | 4700 | 165 | Fast pace, moody dark palette | Purple / deep violet |
 | 9 | **Molten Core** | Hard | 5000 | 170 | Lava theme — heavy gravity flips over lava spikes. **Unlocks the Magma skin.** | Fiery red / orange / yellow |
 | 10 | Final Ascent | Hard | 5400 | 176 | Finale — every mechanic, 3× sprint finish | Red / orange, full-spectrum accents |
+| — | **Pro** | Pro | 8500 | 200 | The longest level by far, on purpose. | Blood red / white, glitch-fast |
 
-All 10 levels are open from the start (no sequential unlock gating).
+All 12 levels are open from the start (no sequential unlock gating). Beginner
+and Pro are extras that sit outside the 1–10 difficulty staircase — Beginner
+at the very front of the menu, Pro at the very end.
+
+**Pro is a deliberate joke-turned-design-choice**: darkest palette, fastest
+BPM (200), densest decorations in the game, and by far the longest level —
+everything about its *presentation* screams "impossible." Mechanically,
+though, `marathonPattern()` in `levels.js` generates it from the same
+generously-spaced, single-spike/single-block units as the Easy tier, with no
+portals at all. It's "actually kind of easy" — length and nerve are the only
+real obstacles. Both extras use their own tier value (`'beginner'` / `'pro'`)
+purely for menu badge styling; they play by identical rules to every other
+level otherwise, and completing either counts toward the normal
+level-count skin unlocks (Prism, Aurora) same as any of the 10.
 
 ### Mechanics
 
@@ -112,7 +127,15 @@ itself plays it. Level names are user text and get HTML-escaped
 (`escapeHtml()`) before insertion — they're the only user-supplied strings
 rendered anywhere in this codebase, so that's the one place it matters.
 
-## Autoplay
+## How to Play manual
+
+An in-game "How to Play" button on the main menu opens a scrollable overlay
+covering controls, the obstacle legend, portals, the Godzilla pickup, what
+Beginner/Pro/1–10 each mean, the Level Maker, skins, and a one-line teaser
+about cheat codes (deliberately not spelling them out — see Cheat codes
+below for the actual list). This is the manual players actually see, since
+the deployed GitHub Pages site only serves `index.html` — this repo's
+markdown files aren't visible to someone just playing the game.
 
 ## Autoplay
 

@@ -15,11 +15,16 @@ Play instantly in your browser — no installation required.
 - Dodge spikes and blocks, ride gravity-flip and speed portals, and reach
   the end of the level.
 
+A full in-game manual is also one click away — hit **How to Play** on the
+main menu.
+
 ## Features
 
-- **10 built-in levels** with a difficulty staircase from easy to hard,
-  each with its own color palette and music, introducing gravity-flip
-  portals, speed portals, and tighter platforming as you progress.
+- **12 levels total**: a **Beginner** warm-up, the core **10-level**
+  difficulty staircase from easy to hard (each with its own color palette
+  and music, introducing gravity-flip portals, speed portals, and tighter
+  platforming as you progress), and **Pro** — a long, intimidating-looking
+  bonus level that's actually easy, just very long.
 - **7 unlockable skins**, earned by beating specific levels, completing a
   number of levels, or dodging 100 spikes in a row without dying — plus a
   secret one found only through a cheat code.

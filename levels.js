@@ -56,6 +56,26 @@ function gearField(startX, endX, y, count, r = 18, speed = 1) {
   return arr;
 }
 
+// Generates a long run of generously-spaced, easy obstacle units — used by
+// the "Pro" marathon level, which is meant to look intense but stay fair.
+// Every 3rd unit is a light double-spike, every 5th a gentle 2-step
+// staircase, everything else a single spike + single block — all with wide
+// gaps, so length (not precision) is the actual challenge.
+function marathonPattern(startX, repeats, unitGap = 380) {
+  const arr = [];
+  for (let i = 0; i < repeats; i++) {
+    const baseX = startX + i * unitGap;
+    if (i % 5 === 4) {
+      arr.push(...stairsUp(baseX, 2, 70, 40, 20));
+    } else if (i % 3 === 1) {
+      arr.push(spike(baseX), spike(baseX + 90));
+    } else {
+      arr.push(spike(baseX), block(baseX + 180, G - 40));
+    }
+  }
+  return arr;
+}
+
 // --- procedural chiptune data ------------------------------------------
 
 function noteFreq(semitoneFromC4) {
@@ -96,6 +116,28 @@ function palette(bgTop, bgBottom, primary, secondary, accent, spikeColor, blockC
 // --- levels ----------------------------------------------------------------
 
 const LEVELS = [
+  {
+    id: 0,
+    name: 'Beginner',
+    tier: 'beginner',
+    length: 2000,
+    lavaTheme: false,
+    palette: palette('#081018', '#0c1624', '#6fe6ff', '#9fffb0', '#ffffff', '#6fe6ff', '#9fffb0'),
+    music: buildMusic({ bpm: 108, root: 0, scaleName: 'major', wave: 'triangle', kickEvery: 4 }),
+    obstacles: [
+      spike(500),
+      block(750, G - 40),
+      spike(950),
+      spike(1150),
+      block(1400, G - 40),
+      spike(1650),
+    ],
+    portals: [],
+    decorations: {
+      particleDensity: 0.4,
+      gears: gearField(400, 1900, G - 180, 3, 14, 0.4),
+    },
+  },
   {
     id: 1,
     name: 'First Steps',
@@ -459,6 +501,25 @@ const LEVELS = [
     decorations: {
       particleDensity: 1.5,
       gears: gearField(500, 5300, (G + C) / 2, 12, 22, 2.6),
+    },
+  },
+  {
+    id: 11,
+    name: 'Pro',
+    tier: 'pro',
+    lavaTheme: false,
+    length: 8500,
+    // Looks like the scariest level in the game (darkest palette, fastest
+    // BPM, densest decorations) but is deliberately easy moment-to-moment —
+    // it's the longest level by a wide margin, not the hardest. See
+    // marathonPattern() above and DESIGN.md for the design intent.
+    palette: palette('#050002', '#0c0004', '#ff2e2e', '#ffffff', '#fff42e', '#ff2e2e', '#ffffff'),
+    music: buildMusic({ bpm: 200, root: -6, scaleName: 'dark', wave: 'sawtooth', kickEvery: 2 }),
+    obstacles: marathonPattern(600, 20, 380),
+    portals: [],
+    decorations: {
+      particleDensity: 1.6,
+      gears: gearField(500, 8300, (G + C) / 2, 16, 20, 3),
     },
   },
 ];

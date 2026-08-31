@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Geometry Dash Clone</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -23,6 +23,7 @@
       <p class="hint">Select a level</p>
       <div id="level-grid"></div>
       <div id="menu-actions">
+        <button id="open-manual-btn" type="button" class="secondary-btn">How to Play</button>
         <button id="open-skins-btn" type="button" class="secondary-btn">Skins</button>
         <button id="open-maker-btn" type="button" class="secondary-btn">Level Maker</button>
       </div>
@@ -31,6 +32,57 @@
         <h2>My Levels</h2>
         <div id="custom-list"></div>
       </div>
+    </div>
+
+    <div id="manual-overlay" class="hidden">
+      <h1>HOW TO PLAY</h1>
+      <div id="manual-body">
+        <section>
+          <h2>Controls</h2>
+          <ul>
+            <li><b>Space</b>, click, or tap — jump</li>
+            <li><b>R</b> — restart the level you're on</li>
+            <li><b>Esc</b>, or the <b>Menu</b> button — back to level select</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Obstacles</h2>
+          <ul>
+            <li><span class="legend-swatch legend-spike"></span> <b>Spike</b> — touch it and you explode, level restarts.</li>
+            <li><span class="legend-swatch legend-block"></span> <b>Block</b> — land on <b>top</b> to run across it safely. Hit the <b>side</b> and you explode.</li>
+            <li>Both can also appear upside-down on the ceiling once you hit a gravity flip — same rules, flipped.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Portals</h2>
+          <ul>
+            <li><b>Gravity Flip</b> — flips what's "down" for you. The ceiling becomes the floor until the next one.</li>
+            <li><b>Speed Portal</b> — changes how fast you're moving, faster or slower.</li>
+            <li><b>Godzilla pickup</b> (in custom levels) — touch it to smash every block in the level in one hit.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Levels</h2>
+          <ul>
+            <li><b>Beginner</b> — a short, gentle warm-up. Start here if you're new.</li>
+            <li><b>Levels 1–10</b> — the main run, climbing from Easy to Hard.</li>
+            <li><b>Pro</b> — the longest level in the game. It looks brutal, but it's actually pretty fair if you take it steady — the challenge is going the distance, not tricky jumps.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Level Maker</h2>
+          <p>Build and save your own levels — completely unlimited. Find it from the main menu, under "Level Maker."</p>
+        </section>
+        <section>
+          <h2>Skins</h2>
+          <p>Unlock new looks for your cube by beating levels, chaining spike dodges without dying, or finding secrets. Pick your favorite from the "Skins" menu.</p>
+        </section>
+        <section>
+          <h2>Secrets</h2>
+          <p>There are a few cheat codes hidden in this game — just type them on your keyboard while playing. Good luck finding them. 😉</p>
+        </section>
+      </div>
+      <button id="close-manual-btn" type="button" class="secondary-btn">Back</button>
     </div>
 
     <div id="skin-overlay" class="hidden">

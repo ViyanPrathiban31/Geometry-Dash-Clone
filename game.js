@@ -13,6 +13,9 @@ canvas.height = VIEW_H;
 
 const menuOverlay = document.getElementById('menu-overlay');
 const levelGridEl = document.getElementById('level-grid');
+const openManualBtn = document.getElementById('open-manual-btn');
+const manualOverlay = document.getElementById('manual-overlay');
+const closeManualBtn = document.getElementById('close-manual-btn');
 const openSkinsBtn = document.getElementById('open-skins-btn');
 const openMakerBtn = document.getElementById('open-maker-btn');
 const customListEl = document.getElementById('custom-list');
@@ -487,7 +490,10 @@ function beginLevel(levelObj, idx) {
   pickups = level.pickups || [];
   deathCount = 0;
   deathCountEl.textContent = '0';
-  levelLabelEl.textContent = level.tier === 'custom' ? `Custom: ${level.name}` : `${level.id}. ${level.name}`;
+  levelLabelEl.textContent =
+    level.tier === 'custom' ? `Custom: ${level.name}`
+    : (level.tier === 'beginner' || level.tier === 'pro') ? level.name
+    : `${level.id}. ${level.name}`;
   generateAmbientParticles();
   resetPlayerAndRuntime();
   MusicEngine.playLevel(level);
@@ -514,6 +520,7 @@ function openMenu() {
   buildCustomLevelList();
   winOverlay.classList.add('hidden');
   skinOverlay.classList.add('hidden');
+  manualOverlay.classList.add('hidden');
   editorOverlay.classList.add('hidden');
   menuOverlay.classList.remove('hidden');
 }
@@ -527,16 +534,25 @@ function closeSkins() {
   skinOverlay.classList.add('hidden');
 }
 
+function openManual() {
+  manualOverlay.classList.remove('hidden');
+}
+
+function closeManual() {
+  manualOverlay.classList.add('hidden');
+}
+
 // --- menu / skin grids -------------------------------------------------
 
 function buildLevelGrid() {
   levelGridEl.innerHTML = '';
   LEVELS.forEach((lvl, idx) => {
     const done = save.completedLevels.includes(lvl.id);
+    const isExtra = lvl.tier === 'beginner' || lvl.tier === 'pro';
     const card = document.createElement('div');
     card.className = `level-card tier-${lvl.tier}`;
     card.innerHTML =
-      `<div class="level-card-num">${lvl.id}</div>` +
+      `<div class="level-card-num">${isExtra ? 'EXTRA' : lvl.id}</div>` +
       `<div class="level-card-name">${lvl.name}</div>` +
       `<div class="level-card-tier">${lvl.tier}</div>` +
       (done ? '<div class="level-card-done">Cleared</div>' : '');
@@ -608,6 +624,8 @@ canvas.addEventListener(
 
 openSkinsBtn.addEventListener('click', openSkins);
 closeSkinsBtn.addEventListener('click', closeSkins);
+openManualBtn.addEventListener('click', openManual);
+closeManualBtn.addEventListener('click', closeManual);
 
 // --- level editor UI wiring ---------------------------------------------
 
